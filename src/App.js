@@ -47,6 +47,20 @@ class App extends React.Component {
       "selected", verbose);
   };
 
+  onSelect = (question_id, choice_id) => {
+    console.log({question: question_id,
+      choice: choice_id})
+    this.setState({selected: this.state.selected.concat({question: question_id,
+                                                         choice: choice_id})});
+  }
+
+  onDeselect = (question_id, choice_id) => {
+    let delete_index = this.state.selected.findIndex((e) => (e.choice === choice_id));
+    let new_selected = [...this.state.selected];
+    new_selected.splice(delete_index, 1);
+    this.setState({selected: new_selected});
+  }
+
   render = () => {
     let question_elements = [];
     for (let question of this.state.questions) {
@@ -59,7 +73,11 @@ class App extends React.Component {
       }
 
       question_elements.push(
-        <Question key={question.id}
+        <Question
+          id={question.id}
+          onSelect={this.onSelect}
+          onDeselect={this.onDeselect}
+          key={question.id}
           enable={question.enable}
           message={question.message}
           min_num_chosen={question.min_num_chosen}
