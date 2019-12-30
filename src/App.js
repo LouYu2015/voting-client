@@ -15,12 +15,16 @@ class App extends React.Component {
     this.onRefresh();
   }
 
-  onRefresh = () => {
+  /**
+   * Send a request to `link` and use the returned json to update
+   * `target` in the state
+   */
+  updateResource = (link, target) => {
     this.refreshStatus.onRequestStart();
-    fetch(BASE_URL + "questions/")
+    fetch(link)
     .then(async (response) => {
       if (response.ok) {
-        this.setState({questions: await response.json()});
+        this.setState({[target]: await response.json()});
         this.refreshStatus.onRequestDone();
       } else {
         this.refreshStatus.onRequestFail();
@@ -30,21 +34,12 @@ class App extends React.Component {
       console.log(error);
       this.refreshStatus.onRequestFail();
     })
+  }
 
-    this.refreshStatus.onRequestStart();
-    fetch(BASE_URL + "get_selected/" + this.props.match.params.serial_number)
-    .then(async (response) => {
-      if (response.ok) {
-        this.setState({selected: await response.json()});
-        this.refreshStatus.onRequestDone();
-      } else {
-        this.refreshStatus.onRequestFail();
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      this.refreshStatus.onRequestFail();
-    })
+  onRefresh = () => {
+    this.updateResource(BASE_URL + "questions/", "questions");
+    this.updateResource(BASE_URL + "get_selected/" + this.props.match.params.serial_number,
+      "selected");
   };
 
   render = () => {
@@ -74,7 +69,7 @@ class App extends React.Component {
           Your serial number: {this.props.match.params.serial_number}
           <button className="btn btn-link" onClick={this.onRefresh}>Refresh</button>
         </nav>
-        <div className="container">
+        <div className="container footer-fix">
           {question_elements}
         </div>
         <StatusBar ref={(ref) => {this.voteSubmissionStatus = ref;}}
