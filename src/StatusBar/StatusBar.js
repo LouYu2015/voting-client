@@ -58,7 +58,7 @@ class StatusBar extends React.Component {
       message = (<div className="alert alert-success">{this.props.success_message}</div>)
     }
     return (
-      <footer class="fixed-bottom px-3 text-center">
+      <footer className="fixed-bottom px-3 text-center">
         {message}
       </footer>
     );
