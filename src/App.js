@@ -32,6 +32,7 @@ class App extends React.Component {
         if (verbose)
           this.refreshStatusBar.current.onRequestDone();
       } else {
+        console.log(await response.json());
         if (verbose)
           this.refreshStatusBar.current.onRequestFail();
       }
@@ -82,7 +83,9 @@ class App extends React.Component {
       if (response.ok) {
         this.voteSubmissionStatusBar.current.onRequestDone();
       } else {
+        console.log(await response.json());
         this.voteSubmissionStatusBar.current.onRequestFail();
+        this.onRefresh();
       }
     })
     .catch((error) => {
