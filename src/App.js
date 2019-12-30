@@ -10,6 +10,7 @@ class App extends React.Component {
     questions: [],
     selected: []
   };
+  voteSubmissionStatusBar = React.createRef();
 
   componentDidMount = () => {
     this.onRefresh(true);
@@ -65,7 +66,7 @@ class App extends React.Component {
   }
 
   onSubmit = (question_id, choices) => {
-    // this.voteSubmissionStatus.onRequestStart();
+    this.voteSubmissionStatusBar.current.onRequestStart();
     fetch(BASE_URL + "update_vote/" + question_id + "/",
       {
         body: JSON.stringify({serial_number: this.props.match.params.serial_number,
@@ -77,15 +78,15 @@ class App extends React.Component {
         method: 'POST'
       })
     .then(async (response) => {
-      // if (response.ok) {
-      //   this.voteSubmissionStatus.onRequestDone();
-      // } else {
-      //   this.voteSubmissionStatus.onRequestFail();
-      // }
+      if (response.ok) {
+        this.voteSubmissionStatusBar.current.onRequestDone();
+      } else {
+        this.voteSubmissionStatusBar.current.onRequestFail();
+      }
     })
     .catch((error) => {
-      // console.log(error);
-      // this.voteSubmissionStatus.onRequestFail();
+      console.log(error);
+      this.voteSubmissionStatusBar.current.onRequestFail();
     })
   }
 
@@ -125,7 +126,7 @@ class App extends React.Component {
         <div className="container footer-fix">
           {question_elements}
         </div>
-        <StatusBar ref={(ref) => {this.voteSubmissionStatus = ref;}}
+        <StatusBar ref={this.voteSubmissionStatusBar}
           timeout={this.props.prompt_timeout}
           pending_message={"Submitting your vote..."}
           success_message={"Your vote is submitted o(*^▽^*)o"}
