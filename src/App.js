@@ -24,20 +24,33 @@ class App extends React.Component {
           ]
       }
   ],
-    selected: []
+    selected: [
+      {
+          "question": 1,
+          "choice": 2
+      }
+    ]
   }
 
   render = () => {
     let question_elements = [];
     for (let question of this.state.questions) {
-      console.log(question);
+      // Get selected choices for this question
+      let selected_choices = [];
+      for (let selected_choice of this.state.selected) {
+        if (selected_choice["question"] === question["id"]) {
+          selected_choices.push(selected_choice["choice"]);
+        }
+      }
+
       question_elements.push(
         <Question key={question.id}
           enable={question.enable}
           message={question.message}
           min_num_chosen={question.min_num_chosen}
           max_num_chosen={question.max_num_chosen}
-          choices={question.choices} />
+          choices={question.choices}
+          selected = {selected_choices}/>
       );
     }
     return (
