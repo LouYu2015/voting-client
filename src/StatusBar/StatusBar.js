@@ -51,14 +51,14 @@ class StatusBar extends React.Component {
   render = () => {
     let message;
     if (this.state.pending > 0) {
-      message = (<div className="alert alert-info">Submitting your vote...</div>)
+      message = (<div className="alert alert-info">{this.props.pending_message}</div>)
     } else if (this.state.error > 0) {
-      message = (<div className="alert alert-danger">Failed to submit your vote {"(>_<)"}</div>)
+      message = (<div className="alert alert-danger">{this.props.fail_message}</div>)
     } else if (this.state.done > 0) {
-      message = (<div className="alert alert-success">Your vote is submitted o(*^▽^*)o</div>)
+      message = (<div className="alert alert-success">{this.props.success_message}</div>)
     }
     return (
-      <footer class="fixed-bottom px-3">
+      <footer class="fixed-bottom px-3 text-center">
         {message}
       </footer>
     );
