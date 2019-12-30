@@ -19,10 +19,26 @@ class Question extends React.Component {
       );
     }
 
+    let warning_message;
+    if (this.props.enable) {
+      let numChosen = this.props.selected.length;
+      if (numChosen < this.props.min_num_chosen) {
+        warning_message = "Must select at least " + this.props.min_num_chosen + " option(s)";
+      }
+      if (numChosen > this.props.max_num_chosen) {
+        warning_message = "Can't select more than " + this.props.max_num_chosen + " option(s)";
+      }
+    }
+    let warning_element;
+    if (warning_message !== undefined) {
+      warning_element = <div className="alert alert-warning m-3">{warning_message}</div>
+    }
+
     return (
     <div className="card m-3">
       <div className="card-header">
         {this.props.message}
+        {warning_element}
       </div>
       <ul className="list-group list-group-flush">
         {choice_elements}
