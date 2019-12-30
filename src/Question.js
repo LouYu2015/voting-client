@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import { act } from 'react-dom/test-utils';
 
 class Question extends React.Component {
   state = {dirty: false};
 
   intArrayEqual = (arr1, arr2) => {
-    return JSON.stringify(arr1.sort()) == JSON.stringify(arr2.sort());
+    return JSON.stringify(arr1.sort()) === JSON.stringify(arr2.sort());
   }
 
   componentDidUpdate = (prevProps, prevState) => {
