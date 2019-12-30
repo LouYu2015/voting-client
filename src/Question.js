@@ -24,6 +24,10 @@ class Question extends React.Component {
     if (this.props.selected.includes(choice_id)) {
       this.props.onDeselect(this.props.id, choice_id);
     } else {
+      if (this.props.max_num_chosen === 1 && this.props.selected.length > 0) {
+        console.log("deselect" + this.props.selected[0]);
+        this.props.onDeselect(this.props.id, this.props.selected[0]);
+      }
       this.props.onSelect(this.props.id, choice_id);
     }
   }

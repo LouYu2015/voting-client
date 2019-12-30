@@ -51,15 +51,17 @@ class App extends React.Component {
   };
 
   onSelect = (question_id, choice_id) => {
-    this.setState({selected: this.state.selected.concat({question: question_id,
-                                                         choice: choice_id})});
+    this.setState(((state, props) => {
+      return {selected: state.selected.concat({question: question_id,
+                                                    choice: choice_id})}}));
   }
 
   onDeselect = (question_id, choice_id) => {
-    let delete_index = this.state.selected.findIndex((e) => (e.choice === choice_id));
-    let new_selected = [...this.state.selected];
-    new_selected.splice(delete_index, 1);
-    this.setState({selected: new_selected});
+    this.setState((state, props) => {
+      let delete_index = this.state.selected.findIndex((e) => (e.choice === choice_id));
+      let new_selected = [...this.state.selected];
+      new_selected.splice(delete_index, 1);
+      return {selected: new_selected}});
   }
 
   onSubmit = (question_id, choices) => {
