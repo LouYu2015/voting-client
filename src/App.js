@@ -70,8 +70,9 @@ class App extends React.Component {
     }
     return (
       <div>
-        <nav className="navbar navbar-light bg-light sticky-top">
+        <nav className="navbar navbar-light bg-light sticky-top border-bottom">
           Your serial number: {this.props.match.params.serial_number}
+          <button className="btn btn-link" onClick={this.onRefresh}>Refresh</button>
         </nav>
         <div className="container">
           {question_elements}
@@ -88,10 +89,9 @@ class App extends React.Component {
           success_message={"Successfully loaded questions"}
           fail_message={"Failed to load questions"}
           />
-        <button onClick={()=>{this.refreshStatus.onRequestStart()}}>Submit</button>
-        <button onClick={()=>{this.refreshStatus.onRequestDone()}}>Done</button>
-        <button onClick={()=>{this.refreshStatus.onRequestFail()}}>Fail</button>
-        <button onClick={()=>{this.onRefresh()}}>Refresh</button>
+          <footer className="bg-light footer border-top p-3 text-center">
+            UWCSSA Voting System 2.0
+          </footer>
       </div>
     );
   }
