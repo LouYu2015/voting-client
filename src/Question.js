@@ -37,6 +37,7 @@ class Question extends React.Component {
     return (
     <div className="card m-3">
       <div className="card-header">
+        {this.props.enable? "" : "[Locked] "}
         {this.props.message}
         {warning_element}
       </div>
