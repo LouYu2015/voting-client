@@ -42,14 +42,15 @@ class App extends React.Component {
   }
 
   onRefresh = (verbose=false) => {
-    this.updateResource(BASE_URL + "questions/", "questions", verbose);
-    this.updateResource(BASE_URL + "get_selected/" + this.props.match.params.serial_number,
-      "selected", verbose);
+    this.updateResource(BASE_URL + "get_selected/" + this.props.match.params.serial_number + "/",
+                        "selected",
+                        verbose);
+    this.updateResource(BASE_URL + "questions/",
+                        "questions",
+                        verbose);
   };
 
   onSelect = (question_id, choice_id) => {
-    console.log({question: question_id,
-      choice: choice_id})
     this.setState({selected: this.state.selected.concat({question: question_id,
                                                          choice: choice_id})});
   }
@@ -59,6 +60,31 @@ class App extends React.Component {
     let new_selected = [...this.state.selected];
     new_selected.splice(delete_index, 1);
     this.setState({selected: new_selected});
+  }
+
+  onSubmit = (question_id, choices) => {
+    // this.voteSubmissionStatus.onRequestStart();
+    fetch(BASE_URL + "update_vote/" + question_id + "/",
+      {
+        body: JSON.stringify({serial_number: this.props.match.params.serial_number,
+          choice_ids: choices}),
+        headers: {
+          'user-agent': 'Mozilla/4.0 MDN Example',
+          'content-type': 'application/json'
+        },
+        method: 'POST'
+      })
+    .then(async (response) => {
+      // if (response.ok) {
+      //   this.voteSubmissionStatus.onRequestDone();
+      // } else {
+      //   this.voteSubmissionStatus.onRequestFail();
+      // }
+    })
+    .catch((error) => {
+      // console.log(error);
+      // this.voteSubmissionStatus.onRequestFail();
+    })
   }
 
   render = () => {
@@ -77,6 +103,7 @@ class App extends React.Component {
           id={question.id}
           onSelect={this.onSelect}
           onDeselect={this.onDeselect}
+          onSubmit={this.onSubmit}
           key={question.id}
           enable={question.enable}
           message={question.message}

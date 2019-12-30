@@ -3,7 +3,23 @@ import './App.css';
 import { act } from 'react-dom/test-utils';
 
 class Question extends React.Component {
+  state = {dirty: false};
+
+  intArrayEqual = (arr1, arr2) => {
+    return JSON.stringify(arr1.sort()) == JSON.stringify(arr2.sort());
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.dirty &&
+        !this.intArrayEqual(prevProps.selected, this.props.selected)) {
+      this.setState({dirty: false});
+      this.props.onSubmit(this.props.id, this.props.selected);
+    }
+  }
+
   onClick = (event) => {
+    this.setState({dirty: true});
+
     let choice_id = parseInt(event.target.name);
     if (this.props.selected.includes(choice_id)) {
       this.props.onDeselect(this.props.id, choice_id);
