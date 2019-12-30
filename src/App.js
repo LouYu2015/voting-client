@@ -19,27 +19,32 @@ class App extends React.Component {
    * Send a request to `link` and use the returned json to update
    * `target` in the state
    */
-  updateResource = (link, target) => {
-    this.refreshStatus.onRequestStart();
+  updateResource = (link, target, verbose=false) => {
+    if (verbose)
+      this.refreshStatus.onRequestStart();
+
     fetch(link)
     .then(async (response) => {
       if (response.ok) {
         this.setState({[target]: await response.json()});
-        this.refreshStatus.onRequestDone();
+        if (verbose)
+          this.refreshStatus.onRequestDone();
       } else {
-        this.refreshStatus.onRequestFail();
+        if (verbose)
+          this.refreshStatus.onRequestFail();
       }
     })
     .catch((error) => {
       console.log(error);
-      this.refreshStatus.onRequestFail();
+      if (verbose)
+        this.refreshStatus.onRequestFail();
     })
   }
 
-  onRefresh = () => {
-    this.updateResource(BASE_URL + "questions/", "questions");
+  onRefresh = (verbose=false) => {
+    this.updateResource(BASE_URL + "questions/", "questions", verbose);
     this.updateResource(BASE_URL + "get_selected/" + this.props.match.params.serial_number,
-      "selected");
+      "selected", verbose);
   };
 
   render = () => {
@@ -67,7 +72,8 @@ class App extends React.Component {
       <div>
         <nav className="navbar navbar-light bg-light sticky-top border-bottom">
           Your serial number: {this.props.match.params.serial_number}
-          <button className="btn btn-link" onClick={this.onRefresh}>Refresh</button>
+          <button className="btn btn-link"
+            onClick={() => {this.onRefresh(true)}}>Refresh</button>
         </nav>
         <div className="container footer-fix">
           {question_elements}
