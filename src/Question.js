@@ -13,7 +13,11 @@ class Question extends React.Component {
     if (this.state.dirty &&
         !this.intArrayEqual(prevProps.selected, this.props.selected)) {
       this.setState({dirty: false});
-      this.props.onSubmit(this.props.id, this.props.selected);
+      let num_selected = this.props.selected.length;
+      if (num_selected >= this.props.min_num_chosen
+          && num_selected <= this.props.max_num_chosen) {
+        this.props.onSubmit(this.props.id, this.props.selected);
+      }
     }
   }
 
