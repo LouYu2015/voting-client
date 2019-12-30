@@ -3,34 +3,49 @@ import './App.css';
 import StatusBar from './StatusBar/StatusBar'
 import Question from './Question'
 
+let BASE_URL = "http://localhost:8000/";
+
 class App extends React.Component {
   state = {
-    questions: [
-      {
-          "id": 1,
-          "enable": false,
-          "message": "测试",
-          "min_num_chosen": 1,
-          "max_num_chosen": 1,
-          "choices": [
-              {
-                  "id": 1,
-                  "message": "选项1"
-              },
-              {
-                  "id": 2,
-                  "message": "选项2"
-              }
-          ]
-      }
-  ],
-    selected: [
-      {
-          "question": 1,
-          "choice": 2
-      }
-    ]
+    questions: [],
+    selected: []
+  };
+
+  componentDidMount = () => {
+    this.onRefresh();
   }
+
+  onRefresh = () => {
+    this.refreshStatus.onRequestStart();
+    fetch(BASE_URL + "questions/")
+    .then(async (response) => {
+      if (response.ok) {
+        this.setState({questions: await response.json()});
+        this.refreshStatus.onRequestDone();
+      } else {
+        this.refreshStatus.onRequestFail();
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      this.refreshStatus.onRequestFail();
+    })
+
+    this.refreshStatus.onRequestStart();
+    fetch(BASE_URL + "get_selected/" + this.props.match.params.serial_number)
+    .then(async (response) => {
+      if (response.ok) {
+        this.setState({selected: await response.json()});
+        this.refreshStatus.onRequestDone();
+      } else {
+        this.refreshStatus.onRequestFail();
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      this.refreshStatus.onRequestFail();
+    })
+  };
 
   render = () => {
     let question_elements = [];
@@ -76,6 +91,7 @@ class App extends React.Component {
         <button onClick={()=>{this.refreshStatus.onRequestStart()}}>Submit</button>
         <button onClick={()=>{this.refreshStatus.onRequestDone()}}>Done</button>
         <button onClick={()=>{this.refreshStatus.onRequestFail()}}>Fail</button>
+        <button onClick={()=>{this.onRefresh()}}>Refresh</button>
       </div>
     );
   }
