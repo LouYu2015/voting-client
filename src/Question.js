@@ -63,7 +63,11 @@ class Question extends React.Component {
     }
     let warning_element;
     if (warning_message !== undefined) {
-      warning_element = <div className="alert alert-warning m-3">{warning_message}</div>
+      warning_element = (
+        <li key="warning"
+          className="list-group-item list-group-item-warning">
+            {warning_message}
+        </li>)
     }
 
     return (
@@ -71,10 +75,10 @@ class Question extends React.Component {
       <div className="card-header">
         {this.props.enable? "" : "[Locked] "}
         {this.props.message}
-        {warning_element}
       </div>
       <ul className="list-group list-group-flush">
         {choice_elements}
+        {warning_element}
       </ul>
     </div>);
   }
