@@ -11,6 +11,7 @@ class App extends React.Component {
     selected: []
   };
   voteSubmissionStatusBar = React.createRef();
+  refreshStatusBar = React.createRef();
 
   componentDidMount = () => {
     this.onRefresh(true);
@@ -22,23 +23,23 @@ class App extends React.Component {
    */
   updateResource = (link, target, verbose=false) => {
     if (verbose)
-      this.refreshStatus.onRequestStart();
+      this.refreshStatusBar.current.onRequestStart();
 
     fetch(link)
     .then(async (response) => {
       if (response.ok) {
         this.setState({[target]: await response.json()});
         if (verbose)
-          this.refreshStatus.onRequestDone();
+          this.refreshStatusBar.current.onRequestDone();
       } else {
         if (verbose)
-          this.refreshStatus.onRequestFail();
+          this.refreshStatusBar.current.onRequestFail();
       }
     })
     .catch((error) => {
       console.log(error);
       if (verbose)
-        this.refreshStatus.onRequestFail();
+        this.refreshStatusBar.current.onRequestFail();
     })
   }
 
@@ -126,21 +127,21 @@ class App extends React.Component {
         <div className="container footer-fix">
           {question_elements}
         </div>
+        <StatusBar ref={this.refreshStatusBar}
+          timeout={this.props.prompt_timeout}
+          pending_message={"Loading questions..."}
+          success_message={"Successfully loaded questions"}
+          fail_message={"Failed to load questions"}
+          />
         <StatusBar ref={this.voteSubmissionStatusBar}
           timeout={this.props.prompt_timeout}
           pending_message={"Submitting your vote..."}
           success_message={"Your vote is submitted o(*^▽^*)o"}
           fail_message={"Failed to submit your vote (>_<)"}
           />
-        <StatusBar ref={(ref) => {this.refreshStatus = ref;}}
-          timeout={this.props.prompt_timeout}
-          pending_message={"Loading questions..."}
-          success_message={"Successfully loaded questions"}
-          fail_message={"Failed to load questions"}
-          />
-          <footer className="bg-light footer border-top p-3 text-center">
-            UWCSSA Voting System 2.0
-          </footer>
+        <footer className="bg-light footer border-top p-3 text-center">
+          UWCSSA Voting System 2.0
+        </footer>
       </div>
     );
   }
