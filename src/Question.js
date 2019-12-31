@@ -43,7 +43,7 @@ class Question extends React.Component {
           className="list-group-item p-0 overflow-hidden">
             <button
                 className={"btn btn-block rounded-0 m-0 " +
-                  (active? "btn-primary" : "btn-light")}
+                  (active? "btn-primary" : "")}
                 disabled={!this.props.enable}
                 name={choice.id}
                 onClick={this.onClick}>
