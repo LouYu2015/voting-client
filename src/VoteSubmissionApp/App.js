@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import StatusBar from './StatusBar/StatusBar'
+import StatusBar from '../StatusBar/StatusBar'
 import Question from './Question'
 
-// let BASE_URL = "http://localhost:8000/";
-let BASE_URL = "https://api.vote.cssauw.org/";
+let BASE_URL = "http://localhost:8000/";
+// let BASE_URL = "https://api.vote.cssauw.org/";
 
-class App extends React.Component {
+class VoteSubmissionApp extends React.Component {
   state = {
     questions: [],
     selected: []
@@ -153,4 +153,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default VoteSubmissionApp;

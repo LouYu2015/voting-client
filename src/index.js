@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import VoteSubmissionApp from './VoteSubmissionApp/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/qr_code/:serial_number"
-        render={(props) => (<App {...props} prompt_timeout={3000} />)}>
+        render={(props) => (<VoteSubmissionApp {...props} prompt_timeout={3000} />)}>
       </Route>
     </Switch>
   </BrowserRouter>, document.getElementById('root'));
