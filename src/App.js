@@ -33,15 +33,16 @@ class App extends React.Component {
         if (verbose)
           this.refreshStatusBar.current.onRequestDone();
       } else {
-        console.log(await response.json());
+        response = await response.json();
+        console.log(response);
         if (verbose)
-          this.refreshStatusBar.current.onRequestFail();
+          this.refreshStatusBar.current.onRequestFail(response.detail);
       }
     })
     .catch((error) => {
       console.log(error);
       if (verbose)
-        this.refreshStatusBar.current.onRequestFail();
+        this.refreshStatusBar.current.onRequestFail("Unable to connect to server");
     })
   }
 
@@ -84,14 +85,15 @@ class App extends React.Component {
       if (response.ok) {
         this.voteSubmissionStatusBar.current.onRequestDone();
       } else {
-        console.log(await response.json());
-        this.voteSubmissionStatusBar.current.onRequestFail();
+        response = await response.json();
+        console.log(response);
+        this.voteSubmissionStatusBar.current.onRequestFail(response.detail);
         this.onRefresh();
       }
     })
     .catch((error) => {
       console.log(error);
-      this.voteSubmissionStatusBar.current.onRequestFail();
+      this.voteSubmissionStatusBar.current.onRequestFail("Unable to connect to server");
     })
   }
 
