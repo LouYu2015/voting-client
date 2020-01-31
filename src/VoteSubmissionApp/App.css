@@ -9,3 +9,7 @@
 .footer-fix {
   margin-bottom: 90px;
 }
+
+body {
+  touch-action: manipulation;
+}
