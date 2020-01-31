@@ -134,9 +134,9 @@ class VoteSubmissionApp extends React.Component {
         </div>
         <StatusBar ref={this.refreshStatusBar}
           timeout={this.props.prompt_timeout}
-          pending_message={"Loading questions..."}
-          success_message={"Successfully loaded questions"}
-          fail_message={"Failed to load questions"}
+          pending_message={"Loading data from server..."}
+          success_message={"Successfully loaded server data"}
+          fail_message={"Failed to load server data"}
           />
         <StatusBar ref={this.voteSubmissionStatusBar}
           timeout={this.props.prompt_timeout}
@@ -145,7 +145,7 @@ class VoteSubmissionApp extends React.Component {
           fail_message={"Failed to submit your vote (>_<)"}
           />
         <footer className="bg-light footer border-top p-3 text-center">
-          UWCSSA Voting System 2.0
+          UWCSSA Voting System 2.0 Beta
         </footer>
       </div>
     );
