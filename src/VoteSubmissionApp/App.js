@@ -134,14 +134,14 @@ class VoteSubmissionApp extends React.Component {
         </div>
         <StatusBar ref={this.refreshStatusBar}
           timeout={this.props.prompt_timeout}
-          pending_message={"Loading data from server..."}
-          success_message={"Successfully loaded server data"}
-          fail_message={"Failed to load server data"}
+          pending_message={"Loading your status..."}
+          success_message={"Successfully loaded your status"}
+          fail_message={"Failed to load your status"}
           />
         <StatusBar ref={this.voteSubmissionStatusBar}
           timeout={this.props.prompt_timeout}
           pending_message={"Submitting your vote..."}
-          success_message={"Your vote is submitted o(*^▽^*)o"}
+          success_message={"Your vote is submitted o(^▽^)o"}
           fail_message={"Failed to submit your vote (>_<)"}
           />
         <footer className="bg-light footer border-top p-3 text-center">
