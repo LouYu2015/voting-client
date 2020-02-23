@@ -1,6 +1,7 @@
 import React from 'react';
 import {BASE_URL} from '../Configuration';
 import Chart from 'chart.js';
+import './test.css';
 
 class VoteResultApp extends React.Component {
   state = {count: []};
@@ -20,11 +21,39 @@ class VoteResultApp extends React.Component {
                 {
                     label: "Votes",
                     data: this.data,
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
                 }
-            ]
+            ],
+            
         },
+        
         options: {
-            //Customize chart options
+          legend: {
+            display: true,
+            position: "top",
+          },
+          title: {
+            display: true,
+            fontSize: 20,
+            text: "Results"
+          },
+          layout: {
+            padding: {
+              left: 50
+            }
+          },
+          tooltips: {
+            enabled: false,
+            bodyFontSize: 23
+          }
+  
         }
     });
     this.onRefresh();
@@ -51,7 +80,8 @@ class VoteResultApp extends React.Component {
     }
 
     return (
-      <div className="container">
+      <div className="container result">
+        <div><img src='/logo.jpg' alt='pic'></img></div>
         <div className="card my-3">
           <div className="card-body">
             <canvas ref={this.chartRef}/>
