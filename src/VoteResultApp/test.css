@@ -1,11 +1,11 @@
 img {
-    max-width:20rem;
-    max-height: 20rem;
+    max-width: 15vw;
+    max-height: 15vw;
     position:relative;
-    top: 8rem;
-    left: -9rem;
+    top: 7vw;
+    left: -3vw;
     z-index: 1;
-    border-radius:10rem;
+    border-radius:7.5vw;
     opacity: 0.9;
 }
 /* 在div中使用了.result 会产生神奇的白边 
@@ -14,4 +14,8 @@ body {
     background-image: url("./bg_1.jpg");
     background-size: cover;
     background-position: center;
+}
+.my-3 {
+    opacity: 0.95;
+    background-color: rgb(72, 72, 73);
 }
