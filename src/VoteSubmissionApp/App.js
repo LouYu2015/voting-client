@@ -125,7 +125,7 @@ class VoteSubmissionApp extends React.Component {
     return (
       <div>
         <nav className="navbar navbar-light bg-light sticky-top border-bottom">
-          Your serial number: {this.props.match.params.serial_number}
+          Your token: {this.props.match.params.serial_number}
           <button className="btn btn-link"
             onClick={() => {this.onRefresh(true)}}>Refresh</button>
         </nav>
@@ -145,7 +145,7 @@ class VoteSubmissionApp extends React.Component {
           fail_message={"Failed to submit your vote (>_<)"}
           />
         <footer className="bg-light footer border-top p-3 text-center">
-          UWCSSA Voting System 2.0 Beta
+          UWCSSA Voting System 2.0
         </footer>
       </div>
     );
