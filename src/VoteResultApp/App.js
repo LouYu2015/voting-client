@@ -56,9 +56,10 @@ class VoteResultApp extends React.Component {
             fontColor: 'white'
           },
           scales: {
-            yAxes: [{
+            xAxes: [{
               ticks: {
-                suggestedMin: 0
+                suggestedMin: 0,
+                suggestedMax: 200
               }
             }]
           }
