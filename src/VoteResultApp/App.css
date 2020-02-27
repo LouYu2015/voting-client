@@ -10,12 +10,12 @@ img {
 }
 /* 在div中使用了.result 会产生神奇的白边 
 */
-body {
+body .result {
     background-image: url("./bg_1.jpg");
     background-size: cover;
     background-position: center;
 }
-.my-3 {
+.result .my-3 {
     opacity: 0.95;
     background-color: rgb(72, 72, 73);
 }
