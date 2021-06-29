@@ -77,7 +77,7 @@ class VoteResultApp extends React.Component {
 
   onRefresh = () => {
     let question_id = this.props.match.params.question_id;
-    fetch(BASE_URL + "vote_count/" + question_id + "/")
+    fetch(BASE_URL + "vote_count/" + question_id + "/", {cache: "no-cache"})
     .then(async (response) => {
       if (response.ok) {
         this.setState({count: await response.json()});

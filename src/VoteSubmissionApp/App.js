@@ -25,7 +25,7 @@ class VoteSubmissionApp extends React.Component {
     if (verbose)
       this.refreshStatusBar.current.onRequestStart();
 
-    fetch(link)
+    fetch(link, {cache: "no-cache"})
     .then(async (response) => {
       if (response.ok) {
         this.setState({[target]: await response.json()});
@@ -78,7 +78,8 @@ class VoteSubmissionApp extends React.Component {
           'user-agent': 'Mozilla/4.0 MDN Example',
           'content-type': 'application/json'
         },
-        method: 'POST'
+        method: 'POST',
+        cache: "no-cache"
       })
     .then(async (response) => {
       if (response.ok) {
