@@ -1,68 +1,105 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# A Voting Website Server using React 用 React 开发的投票网站前端
 
-## Available Scripts
+## Introduction 简介
 
-In the project directory, you can run:
+This repository contains the client part of UW CSSA's voting website.
+For an introduction of the whole project, please see the main project page.
 
-### `npm start`
+This project assumes that a REST API is already provided.
+The code doesn't contain a backend implementation.
+Please refer to the main project page for the corresponding backend implemented in Django.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+此项目包含 UW CSSA 投票网站的客户端。
+关于整体项目介绍，请参阅主文档。
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+该项目需要后端提供 REST API。
+项目不包含后端实现。
+若要获取对应的 Django 后端，请参阅主项目文档。
 
-### `npm test`
+## Code Structure 代码结构
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* `.htaccess`: rewrite rules that force HTTPS connection / 服务器设置，强制 HTTPS 连接
+* `public/`: static files / 静态文件
+  * `background.jpg`: background image for voting result page (used on areas with no text) / 投票结果界面背景（用于空白区域）
+  * `background_blur.jpg`: background image for voting result page (used on areas with text) / 投票结果界面背景（用于文字区域）
+  * `logo.jpg`: logo image that appears on voting result page / 投票结果界面上的 logo
+  * `index.html`: skeleton HTML code / HTML 骨架
+  * `robot.txt`: prevents search engine from indexing this website / 阻止搜索引擎爬取该网站
+* `src`: front-end logics / 前端逻辑
+  * `Configurations.js`: set the backend URL / 设置后端的地址
+  * `index.js`: defines URL routing rules / 定义 URL 规则
+  * `StatusBar/`: the banner (toast) that pop up on the page's bottom / 在页面下方弹出的提示栏
+  * `VoteResultApp/`: the voting result page / 投票结果页面
+  * `VoteSubmissionApp/`: the vote submission page for user / 投票页面
 
-### `npm run build`
+## Deployment 部署
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Install dependencies by running command:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+运行以下命令来安装依赖项：
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm install
+```
 
-### `npm run eject`
+You also need to change `BASE_URL` in `Configuration.js` to REST API server's URL.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+你也需要修改 `Configuration.js` 中的 `BASE_URL`，使其指向后端服务器。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Local Test 本地测试
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To run the client locally:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+若要在本地运行客户端：
 
-## Learn More
+```bash
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You should be able to access the vote submission page in `http://localhost:3000/qr_code/<serial number>` where `<serial number>` is a user's serial number. You can also access the voting result page in `http://localhost:3000/view_result/<question id>` where `<question id>` is the question's id in the database.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+你可以在 `http://localhost:3000/qr_code/<serial number>` 看到投票界面，其中 `<serial number>` 是用户的序列号。你也可以在 `http://localhost:3000/view_result/<question id>` 查看投票结果，其中 `<question id>` 是题目的数据库编号。
 
-### Code Splitting
+### Deploy on Internet 在互联网上部署
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+* Run command `npm run build`
+* Run command `cp .htaccess build/`
+* Upload the `build` folder to your server and configure it as a static website. Please refer to your service provider's documentation on how to serve a static website.
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+* 运行命令 `npm run build`
+* 运行命令 `cp .htaccess build/`
+* 把 `build` 文件夹作为静态网站上传到你的服务器。请参阅云服务商的文档。
 
-### Making a Progressive Web App
+## Credits 鸣谢
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+The background image is adapted from [The ROCK concert Android Homescreen by Ramy434 MyColorscreen](https://wallpapersafari.com/w/wOf85i).
 
-### Advanced Configuration
+The UI style and color scheme is partially adapted from Bootstrap project, which is licensed under MIT license.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+背景图片来自 [The ROCK concert Android Homescreen by Ramy434 MyColorscreen](https://wallpapersafari.com/w/wOf85i)。
 
-### Deployment
+UI 风格和配色的灵感部分来自 Bootstrap 项目，以 MIT 协议授权。
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+	The MIT License (MIT)
 
-### `npm run build` fails to minify
+	Copyright (c) 2011-2021 Twitter, Inc.
+	Copyright (c) 2011-2021 The Bootstrap Authors
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in
+	all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
