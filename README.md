@@ -3,7 +3,7 @@
 ## Introduction 简介
 
 This repository contains the client part of UW CSSA's voting website.
-For an introduction of the whole project, please see the main project page.
+For an introduction of the whole project, please see the [main project page](https://github.com/LouYu2015/voting-website).
 
 This project assumes that a REST API is already provided.
 The code doesn't contain a backend implementation.
